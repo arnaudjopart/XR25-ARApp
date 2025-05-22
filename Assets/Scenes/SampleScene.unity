@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _arRaycastManager: {fileID: 783900997}
-  _prefab: {fileID: 9088492229143276318, guid: f72e2016c9e959e4a9621af6f9269c14, type: 3}
+  _furnitureData: {fileID: 11400000, guid: 617e46ee61677c14e88f41cb8a9ee1f5, type: 2}
   _layerMask:
     serializedVersion: 2
     m_Bits: 64

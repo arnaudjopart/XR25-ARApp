@@ -44,7 +44,6 @@ public class UserInput : MonoBehaviour
             {
                 var touchPosition = touch.screenPosition;
                 Ray ray = _camera.ScreenPointToRay(touchPosition);
-
                 SpawnObject(ray);
                
             }
