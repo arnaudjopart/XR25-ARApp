@@ -4,6 +4,7 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 using Task = System.Threading.Tasks.Task;
 
@@ -14,9 +15,9 @@ public class ProjectThumbnailCreator : EditorWindow
 
     private RenderTexture _renderTexture;
     private Image _renderer;
-    public FurnitureDataSO[] prefabs;
+    [FormerlySerializedAs("prefabs")] public FurnitureDataSO[] m_furnitureData;
     private VisualElement _root;
-    [MenuItem("Window/UI Toolkit/ProjectThumbnailCreator")]
+    [MenuItem("Window/AR App Tools/Project Thumbnail Creator")]
     public static void ShowExample()
     {
         ProjectThumbnailCreator wnd = GetWindow<ProjectThumbnailCreator>();
@@ -39,12 +40,12 @@ public class ProjectThumbnailCreator : EditorWindow
 
 
         Button button = new Button();
-        Button connect = new Button();
-        button.clicked += Test;
-        connect.clicked += ConnectToAsset;
+
+        button.clicked += ProcessSnapshot;
+
                 
         var serializedObject = new SerializedObject(this);
-        var property = serializedObject.FindProperty(nameof(prefabs));
+        var property = serializedObject.FindProperty(nameof(m_furnitureData));
 
         var field = new PropertyField(property);
         field.Bind(serializedObject);
@@ -55,19 +56,15 @@ public class ProjectThumbnailCreator : EditorWindow
         _root.Add(textField);
 
         button.text = "Click me!";
-        connect.text = "Connect me!";
 
         _root.Add(button);
-        _root.Add(connect);
-        
     }
 
-    private async void Test()
+    private async void ProcessSnapshot()
     {
         try
         {
-            await PrintData();
-            
+            await DoSnapshotAsync();
         }
         catch (Exception e)
         {
@@ -75,10 +72,9 @@ public class ProjectThumbnailCreator : EditorWindow
         }
     }
 
-    private async Task PrintData()
+    private async Task DoSnapshotAsync()
     {
-        
-        foreach (var VARIABLE in prefabs)
+        foreach (var VARIABLE in m_furnitureData)
         {
             Debug.Log(VARIABLE.name);
             GameObject obj = Instantiate(VARIABLE.m_prefab);
@@ -94,12 +90,12 @@ public class ProjectThumbnailCreator : EditorWindow
 
     private void CreateSnapshot(FurnitureDataSO data)
     {
-        Camera _camera = FindObjectOfType<Camera>();
-        if(_camera != null) Debug.Log(_camera.name);
+        Camera camera = FindFirstObjectByType<Camera>();
+        if(camera != null) Debug.Log(camera.name);
             
-        _camera.targetTexture = _renderTexture;
-        _camera.Render();
-        _camera.targetTexture = null;
+        camera.targetTexture = _renderTexture;
+        camera.Render();
+        camera.targetTexture = null;
             
         if (_renderTexture != null)
         {
@@ -123,7 +119,7 @@ public class ProjectThumbnailCreator : EditorWindow
 
     private void ConnectToAsset()
     {
-        foreach (var VARIABLE in prefabs)
+        foreach (var VARIABLE in m_furnitureData)
         {
             Sprite textureObject = (Sprite)AssetDatabase.LoadAssetAtPath("Assets/Thumbnails/"+VARIABLE.m_prefab+".jpg", typeof(Sprite));
             if (textureObject != null)
@@ -148,29 +144,6 @@ public class ProjectThumbnailCreator : EditorWindow
 
 public class PostProcessImportAsset : AssetPostprocessor
 {
-    //Based on this example, the output from this function should be:
-    //  OnPostprocessAllAssets
-    //  Imported: Assets/Artifacts/test_file01.txt
-    //
-    //test_file02.txt should not even show up on the Project Browser
-    //until a refresh happens.
-    /*static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
-    {
-        Debug.Log("OnPostprocessAllAssets");
-
-        foreach (var imported in importedAssets)
-            Debug.Log("Imported: " + imported);
-
-        foreach (var deleted in deletedAssets)
-            Debug.Log("Deleted: " + deleted);
-
-        foreach (var moved in movedAssets)
-            Debug.Log("Moved: " + moved);
-
-        foreach (var movedFromAsset in movedFromAssetPaths)
-            Debug.Log("Moved from Asset: " + movedFromAsset);
-    }*/
-
     void OnPreprocessTexture()
     {
         

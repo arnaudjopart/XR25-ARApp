@@ -21,3 +21,4 @@ MonoBehaviour:
   m_description: This is a light
   m_category: 3
   m_prefab: {fileID: 4668670171895200275, guid: 524eae5f236dd2249848730362ec9ef9, type: 3}
+  m_thumbnail: {fileID: 21300000, guid: 3214c01ba6ffcf944b38eab80923ddfb, type: 3}
