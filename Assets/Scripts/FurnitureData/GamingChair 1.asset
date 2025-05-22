@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85f3e15d85abfab4aa84c7747687337b, type: 3}
+  m_Name: GamingChair 1
+  m_EditorClassIdentifier: 
+  m_size:
+    m_width: 0
+    m_height: 0
+    m_depth: 0
+  m_price: 249.99
+  m_name: Awesome Gaming Chair
+  m_description: The chair Ben is dreaming of.
+  m_category: 1
+  m_prefab: {fileID: 4465877376258803806, guid: 97db40610214afc4eaaff9f813f0a0df, type: 3}
