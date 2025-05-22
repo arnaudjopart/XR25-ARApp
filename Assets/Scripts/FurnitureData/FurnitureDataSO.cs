@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "new furniture", menuName = "Catalogue/Furniture")]
 public class FurnitureDataSO : ScriptableObject
@@ -9,7 +10,7 @@ public class FurnitureDataSO : ScriptableObject
     public string m_description;
     public FurnitureCategory m_category;
     public GameObject m_prefab;
-    
+    public Sprite m_thumbnail;
 }
 
 [System.Serializable]

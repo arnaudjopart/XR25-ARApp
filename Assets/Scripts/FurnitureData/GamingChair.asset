@@ -21,3 +21,4 @@ MonoBehaviour:
   m_description: The chair Ben is dreaming of.
   m_category: 1
   m_prefab: {fileID: 8506646162482444220, guid: 937516373df397842a785161977206b7, type: 3}
+  m_thumbnail: {fileID: 21300000, guid: 75b755545ffa35f4592db281bfb2b382, type: 3}
