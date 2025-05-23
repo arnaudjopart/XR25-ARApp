@@ -28,6 +28,7 @@ public class ProjectThumbnailCreator : EditorWindow
     private GameObject _background;
     private Toggle _jpgToggle;
     private Toggle _pngToggle;
+    private List<GameObject> _prefabs;
 
     [MenuItem("Window/AR App Tools/Project Thumbnail Creator")]
     public static void ShowExample()
@@ -99,14 +100,48 @@ public class ProjectThumbnailCreator : EditorWindow
         string directory = EditorUtility.OpenFolderPanel("Select Directory", _lastOpenDirectory, "");
         _lastOpenDirectory = directory;
         _pathLabel.text = directory ?? string.Empty;
+        
+        DirectoryInfo di = new DirectoryInfo(_pathLabel.text);
+        var prefabFiles = di.GetFiles("*.prefab", SearchOption.AllDirectories);
+        
+        //var files = Directory.GetFiles(_pathLabel.text).Where(name => !name.EndsWith(".meta"));
+        var assetPath = Application.dataPath;
+        var length = assetPath.Length;
+        _prefabs = new List<GameObject>();
+
+        foreach (var VARIABLE in prefabFiles)
+        {
+            var path = VARIABLE.FullName;
+            var relativePath = "Assets"+path.Remove(0, length);
+            relativePath = relativePath.Replace("\\", "/");
+            
+            var prefab = (GameObject)AssetDatabase.LoadAssetAtPath(relativePath,typeof(GameObject));
+            if (prefab != null) _prefabs.Add(prefab);
+            else Debug.LogWarning("Not a prefab: "+path);
+        }
+        Debug.Log("Prefabs: "+_prefabs.Count);
     }
 
     private void OnPrefabBulkSnapshot()
     {
+        /*DirectoryInfo di = new DirectoryInfo(_pathLabel.text);
+        var prefabFiles = di.GetFiles("*.prefab", SearchOption.AllDirectories);
+        
         var files = Directory.GetFiles(_pathLabel.text).Where(name => !name.EndsWith(".meta"));
         var assetPath = Application.dataPath;
         var length = assetPath.Length;
         List<GameObject> prefabs = new List<GameObject>();
+
+        foreach (var VARIABLE in prefabFiles)
+        {
+            var path = VARIABLE.FullName;
+            var relativePath = "Assets"+path.Remove(0, length);
+            relativePath = relativePath.Replace("\\", "/");
+            Debug.Log(relativePath);
+            var prefab = (GameObject)AssetDatabase.LoadAssetAtPath(relativePath,typeof(GameObject));
+            if (prefab != null) prefabs.Add(prefab);
+            else Debug.LogWarning("Not a prefab: "+path);
+        }
         foreach (var path in files)
         {
             var relativePath = "Assets"+path.Remove(0, length);
@@ -116,8 +151,8 @@ public class ProjectThumbnailCreator : EditorWindow
             var prefab = (GameObject)AssetDatabase.LoadAssetAtPath(relativePath,typeof(GameObject));
             if (prefab != null) prefabs.Add(prefab);
             else Debug.LogWarning("Not a prefab: "+path);
-        }
-        TakeBulkSnapshot(prefabs);
+        }*/
+        TakeBulkSnapshot(_prefabs);
 
     }
 
@@ -175,7 +210,7 @@ public class ProjectThumbnailCreator : EditorWindow
         PlaceCamera(obj);
         if(_jpgToggle.value) CreateSnapshotJPG(variableMPrefab.name);
         if(_pngToggle.value) CreateSnapshotPNG(variableMPrefab.name);
-        await Task.Delay(300);
+        await Task.Delay(100);
         
         DestroyImmediate(obj);
     }
