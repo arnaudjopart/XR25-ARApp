@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 85f3e15d85abfab4aa84c7747687337b, type: 3}
-  m_Name: Light
+  m_Name: new furniture 2
   m_EditorClassIdentifier: 
   m_size:
     m_width: 0
     m_height: 0
     m_depth: 0
-  m_price: 99.99
-  m_name: Double Floor Light
-  m_description: This is a light
-  m_category: 3
-  m_prefab: {fileID: 919132149155446097, guid: 023ef0cf66c71eb4397f7dbc6d81fdcb, type: 3}
-  m_thumbnail: {fileID: 21300000, guid: e862456f509e61e4cb48c0b54ab8b8af, type: 3}
+  m_price: 0
+  m_name: 
+  m_description: 
+  m_category: 0
+  m_prefab: {fileID: 919132149155446097, guid: 97696e7131f7a684e95e4e08635f7a7a, type: 3}
+  m_thumbnailPNG: {fileID: 21300000, guid: 68bde64b090225f44a9898419743d57b, type: 3}
+  m_thumbnailJPG: {fileID: 21300000, guid: 0fa1542bba871544e989e83b8c5283b8, type: 3}

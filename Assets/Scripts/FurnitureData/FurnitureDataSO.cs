@@ -10,7 +10,8 @@ public class FurnitureDataSO : ScriptableObject
     public string m_description;
     public FurnitureCategory m_category;
     public GameObject m_prefab;
-    public Sprite m_thumbnail;
+    public Sprite m_thumbnailPNG;
+    public Sprite m_thumbnailJPG;
 }
 
 [System.Serializable]

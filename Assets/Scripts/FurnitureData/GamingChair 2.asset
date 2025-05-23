@@ -21,4 +21,4 @@ MonoBehaviour:
   m_description: Not good enough for Ben
   m_category: 1
   m_prefab: {fileID: 1906257758403887170, guid: 3eab8e3c015060546825aee028e7e5e6, type: 3}
-  m_thumbnail: {fileID: 0}
+  m_thumbnail: {fileID: 21300000, guid: 550a9b2d00d85664494ccf66209b7497, type: 3}
